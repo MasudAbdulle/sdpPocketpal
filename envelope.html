@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        <label>Enter number of envelopes:</label>
+        <input type="number" id="envelopeCount" name="envelopeCount">
+        <br><br>
+        <div id="envelopeFields">
+        </div>
+        <br><br>
+        <button type="submit">Submit</button>
+        <p id="sum">The sum of the money within each envelope is .</p>
+    </form>
+
+    <script>
+        document.querySelector("input[name='envelopeCount']").addEventListener("change", function () {
+            let count = this.value;
+            let envelopeFields = document.querySelector("#envelopeFields");
+            envelopeFields.innerHTML = "";
+            for (let i = 0; i < count; i++) {
+                envelopeFields.innerHTML += `
+              <label>Envelope ${i + 1}:</label>
+              <input type="text" name="envelopeName${i + 1}">
+              <input type="number" name="envelopeNumber${i + 1}">
+            
+              <br><br>
+            `;
+            }
+        });
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            let sum = 0;
+            let envelopeCount = document.querySelector("input[name='envelopeCount']").value;
+            for (let i = 1; i <= envelopeCount; i++) {
+                let envelopeNumber = document.querySelector(`input[name='envelopeNumber${i}']`).value;
+                sum += parseInt(envelopeNumber);
+            }
+            document.querySelector("#sum").textContent = `The sum of the envelope numbers is: ${sum}`;
+        });
+
+    </script>
+
+
+</body>
+
+</html>

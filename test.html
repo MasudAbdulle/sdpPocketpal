@@ -1,0 +1,42 @@
+<html>
+
+    <form id="budgetForm">
+        <label for="budgetInput">Budget:</label>
+        <input type="text" id="budgetInput" name="budgetInput">
+        <br><br>
+        <label for="splitSelect">Split:</label>
+        <select id="splitSelect" name="splitSelect">
+          <option value="monthly">Monthly</option>
+          <option value="weekly">Weekly</option>
+        </select>
+        <br><br>
+        <input type="button" value="Split Budget" onclick="splitBudget()">
+      </form>
+      <br>
+      <div id="container1" style="display: none; border: 2px solid blue; border-radius: 10px;"></div>
+      <div id="container2" style="display: none; border: 2px solid blue; border-radius: 10px;"></div>
+      <div id="container3" style="display: none; border: 2px solid blue; border-radius: 10px;"></div>
+      
+      <script>
+        function splitBudget() {
+          const budgetInput = document.getElementById("budgetInput").value;
+          const splitSelect = document.getElementById("splitSelect").value;
+          let budgetSplit;
+    
+          
+          const split1 = budgetSplit * 0.5;
+          const split2 = budgetSplit * 0.3;
+          const split3 = budgetSplit * 0.2;
+          
+          document.getElementById("container1").style.display = "block";
+          document.getElementById("container1").innerHTML = `50%: $${split1.toFixed(2)}`;
+          
+          document.getElementById("container2").style.display = "block";
+          document.getElementById("container2").innerHTML = `30%: $${split2.toFixed(2)}`;
+          
+          document.getElementById("container3").style.display = "block";
+          document.getElementById("container3").innerHTML = `20%: $${split3.toFixed(2)}`;
+        }
+      </script>
+      
+</html>

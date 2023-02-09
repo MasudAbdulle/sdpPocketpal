@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+
+    Start Month:<input type='text' value='2018/1/1' id='startDate'/>
+    <br />
+    End Month:<input type='text' value='2018/12/1' id='endDate'/>
+    <br />
+    Start Price:<input type='text' value='100' id='startPrice' />
+    <br />
+    <button id='calc'>Calculate</button>
+    <br />
+    End Price:<input type='text' value=''  id='endPrice'/>
+    <br />
+    <a href="www.statbureau.org">www.statbureau.org</a>
+    
+    <script type="text/javascript">
+        var apiUrl = 'https://www.statbureau.org/calculate-inflation-price-jsonp?jsoncallback=?';
+
+        $('#calc').on('click', function calculate() {
+            $.getJSON(apiUrl, {
+                country: 'united-states',
+                start: $('#startDate').val(),
+                end: $('#endDate').val(),
+                amount: $('#startPrice').val(),
+                format: true
+            })
+              .done(function (data) {
+                  $('#endPrice').val(data);
+              });
+        });
+    </script>
+      
+    </script>
+<script>
+    fetch("https://www.bankofengland.co.uk/monetary-policy/inflation")
+  .then(response => response.text())
+  .then(data => {
+    // parse the data and extract the inflation rate
+  })
+  .catch(error => console.error(error));
+</script>
+
+<script>
+  function createContainers() {
+    var container1 = document.createElement("div");
+    container1.classList.add("container");
+    container1.innerHTML = "Crfmeroignerongoeirnier";
+  
+    var container2 = document.createElement("div");
+    container2.classList.add("container");
+    container2.innerHTML = "refnriedgnerisfnerosd";
+  
+    var container3 = document.createElement("div");
+    container3.classList.add("container");
+    container3.innerHTML = "Container 3";
+  
+    document.body.appendChild(container1);
+    document.body.appendChild(container2);
+    document.body.appendChild(container3);
+  }
+  
+  var button = document.getElementById("create-containers-button");
+  button.addEventListener("click", createContainers);
+</script>
+<button id="create-containers-button">Create Containers</button>
+
+</body>
+</html>

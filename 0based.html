@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <label>Enter total income:</label>
+        <input type="number" id="totalIncome" name="totalIncome">
+        <br><br>
+        <div id="categoryFields">
+        </div>
+        <br><br>
+        <button type="submit">Submit</button>
+        <br><br>
+        <p id="remaining">The remaining amount will be shown here.</p>
+      </form>
+<script>
+    document.querySelector("form").addEventListener("submit", function(event) {
+  event.preventDefault();
+  let totalExpenses = 0;
+  let totalIncome = document.querySelector("input[name='totalIncome']").value;
+  let categoryFields = document.querySelector("#categoryFields");
+  let inputs = categoryFields.querySelectorAll("input[type='number']");
+  for (let i = 0; i < inputs.length; i++) {
+    let expense = inputs[i].value;
+    if (!isNaN(expense)) {
+      totalExpenses += parseInt(expense);
+    }
+  }
+  let remaining = totalIncome - totalExpenses;
+  document.querySelector("#remaining").textContent = `The remaining amount is: ${remaining}`;
+});
+
+document.querySelector("input[name='totalIncome']").addEventListener("change", function() {
+  let count = prompt("Enter the number of categories: ");
+  let categoryFields = document.querySelector("#categoryFields");
+  categoryFields.innerHTML = "";
+  for (let i = 0; i < count; i++) {
+    categoryFields.innerHTML += `
+      <label>Category ${i + 1}:</label>
+      <input type="number" name="categoryExpense${i + 1}">
+      <br><br>
+    `;
+  }
+});
+
+</script>      
+</body>
+</html>
