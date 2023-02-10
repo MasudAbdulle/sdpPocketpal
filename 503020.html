@@ -21,7 +21,11 @@
       width: 600px;
       
     }
-  </style>
+    #returnContainers {
+      width: 400px;
+      height: 400px;
+    }
+      </style>
 </head>
 
 <body>
@@ -67,9 +71,7 @@
     <div id="mainChartContainer">
       <canvas id="pie-chart"></canvas>
     </div>
-
   </center>
-
   <div class="row d-flex justify-content-center">
     <div id="chart-container">
       <canvas id="3070"></canvas>
@@ -77,28 +79,16 @@
  
 
   <div id="chart-container">
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart">
+
+    </canvas>
   </div>
 
   <div id="chart-container">
     <canvas id="5050"></canvas>
   </div>
   </div>
-  </div>
-
-
-  <div id="chart-container">
-    <canvas id="myChart"></canvas>
-  </div>
-
-  </div>
-  </div>
-  <div id="chart-container">
-    <canvas id="5050"></canvas>
-  </div>
-</div>
-</div>
-
+  
 
 
 
@@ -131,6 +121,10 @@
             ],
           },
           options: {
+            title: {
+            display: true,
+            text: "mepgnsofndwieofoewnsfiowesnfoewsnfoewsnoefwsnfoierdngioerj"
+          },
             height: 1000,
             width: 1000,
             responsive: true,
@@ -145,12 +139,7 @@
               },
             },
           },
-          title: {
-            display: true,
-            text: 'My Chart Description',
-            fontSize: 18,
-            position: 'bottom'
-        }
+        
         });
       }
 
@@ -160,17 +149,16 @@
         data: {
           labels: ["Savings", "other"],
           datasets: [{
-            data: [20, 80],
+            data: [twentyPercent, 80],
             backgroundColor: [
               'red',
-              'grey'
+              'grey',
             ]
           }], options:{
             title: {
             display: true,
-            text: 'My Chart Title',
-            fontSize: 18
-        }
+            text: "mepgnsofndwieofoewnsfiowesnfoewsnfoewsnoefwsnfoierdngioerj"
+          },
           }
         }
       });
@@ -207,19 +195,20 @@
 
       return `
    
-    <div class="container border border-primary rounded-lg p-3">
-      <div>50% of your income should be used for essential expenses: £${fiftyPercent.toFixed(2)}</div>
+      <div class = "returnContainers">
+   
+      50% of your income should be used for essential expenses: £${fiftyPercent.toFixed(2)}
      
-      </div>
-      <div class="container border border-warning rounded-lg p-3">
-      <div>30% of your income should be used for discretionary spending: £${thirtyPercent.toFixed(2)}</div>
+    
+    
+      30% of your income should be used for discretionary spending: £${thirtyPercent.toFixed(2)}
+    
+     
+      20% of your income should be used for savings or paying off debt: £${twentyPercent.toFixed(2)}
+     
+      
+    
     </div>
-      <div class="container border border-danger rounded-lg p-3">
-      <div>20% of your income should be used for savings or paying off debt: £${twentyPercent.toFixed(2)}</div>
-     
-      </div>
-    
-    
   `;
     }
 
