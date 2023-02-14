@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Expenses List</title>
+</head>
+<body>
+	<h1>Expenses List</h1>
+	<button onclick="displayExpenses()">Show Expenses</button>
+
+	<ul id="expensesList">
+		<li>Expense 1 - $10</li>
+		<li>Expense 2 - $20</li>
+		<li>Expense 3 - $30</li>
+		<li>Expense 4 - $40</li>
+		<li>Expense 5 - $50</li>
+	</ul>
+
+	<h2>My Expenses</h2>
+	<ul id="myExpensesList">
+	</ul>
+
+	<script>
+		function displayExpenses() {
+			var expenses = document.getElementById("expensesList").getElementsByTagName("li");
+			for (var i = 0; i < expenses.length; i++) {
+				expenses[i].onclick = function() {
+					addExpense(this.innerHTML);
+				};
+			}
+		}
+
+		function addExpense(expense) {
+			var myList = document.getElementById("myExpensesList");
+			var li = document.createElement("li");
+			var text = document.createTextNode(expense);
+			li.appendChild(text);
+			myList.appendChild(li);
+		}
+	</script>
+</body>
+</html>

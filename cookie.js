@@ -1,0 +1,1 @@
+document.cookie = "country = Somalia";

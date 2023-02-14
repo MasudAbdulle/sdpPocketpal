@@ -45,12 +45,16 @@
   
     <div class="inputContainer">
       <div>
-        <h3>Value:</h3>
-        <input class="input" type="number">
+        <h3>Goal Name:</h3>
+        <input class="nameInput" type="text">
       </div>
       <div>
-        <h3>Max value:</h3>
+        <h3>Goal Cost:</h3>
         <input class="maxInput" type="number">
+      </div>
+      <div>
+        <h3>Amount Saved:</h3>
+        <input class="input" type="number">
       </div>
     </div>
   </center>
@@ -58,12 +62,13 @@
       const progress = document.querySelector(".progress-done");
       const input = document.querySelector(".input");
       const maxInput = document.querySelector(".maxInput");
+      const nameInput = document.querySelector(".nameInput");
       let finalValue = 0;
       let max = 0;
 
       function changeWidth() {
         progress.style.width = `${(finalValue/max)*100}%`;
-        progress.innerText = `${Math.ceil((finalValue/max)*100)}%`;
+        progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue/max)*100)}%)`;
       }
 
       input.addEventListener("keyup", function(){

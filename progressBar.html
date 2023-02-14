@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label for="goal-name">Goal Name:</label>
+        <input type="text" id="goal-name">
+      </div>
+      
+      <div>
+        <label for="goal-cost">Goal Cost:</label>
+        <input type="number" id="goal-cost">
+      </div>
+      
+      <div>
+        <label for="goal-saved">Amount Saved:</label>
+        <input type="number" id="goal-saved" oninput="updateProgressBar()">
+      </div>
+      
+      <div>
+        <div id="progress-bar"></div>
+      </div>
+
+      <script>
+        function updateProgressBar() {
+  const goalName = document.getElementById("goal-name").value;
+  const goalCost = document.getElementById("goal-cost").value;
+  const goalSaved = document.getElementById("goal-saved").value;
+  const progressBar = document.getElementById("progress-bar");
+  
+  const progress = Math.min(goalSaved / goalCost * 100, 100);
+  
+  progressBar.style.width = progress + "%";
+  progressBar.innerText = `${goalName} - $${goalSaved} / $${goalCost} (${progress}%)`;
+}
+
+      </script>
+</body>
+</html>
+
+
+
+  
