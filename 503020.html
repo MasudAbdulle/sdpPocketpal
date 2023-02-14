@@ -16,16 +16,18 @@
       height: 400px;
       width: 400px;
     }
-    #mainChartContainer{
+
+    #mainChartContainer {
       height: 600px;
       width: 600px;
-      
+
     }
+
     #returnContainers {
       width: 400px;
       height: 400px;
     }
-      </style>
+  </style>
 </head>
 
 <body>
@@ -58,7 +60,7 @@
   <p id="result"></p>
   </div>
   <form onsubmit="return calculatePercentages()">
-    
+
 
 
     <label>Enter a number: <input type="text" id="numInput"></label>
@@ -76,159 +78,172 @@
     <div id="chart-container">
       <canvas id="3070"></canvas>
     </div>
- 
 
-  <div id="chart-container">
-    <canvas id="myChart">
 
-    </canvas>
+    <div id="chart-container">
+      <canvas id="myChart">
+
+      </canvas>
+    </div>
+
+    <div id="chart-container">
+      <canvas id="5050"></canvas>
+    </div>
   </div>
 
-  <div id="chart-container">
-    <canvas id="5050"></canvas>
-  </div>
-  </div>
-  
 
-  
+  <div class="row d-flex justify-content-center">
+    <div id="chart-container">
+      chart1
+      <div>50% of your income should be used for essential expenses: £${fiftyPercent.toFixed(2)}</div>
+    </div>
+
+    <div id="chart-container">
+      chart 2
+    </div>
+    <div id="chart-container">
+      chart 3
+    </div>
 
 
+    <script>
 
+      function splitPercentage(num) {
+        var fiftyPercent = num * 0.50;
+        var thirtyPercent = num * 0.30;
+        var twentyPercent = num * 0.20;
 
-  <script>
-
-    function splitPercentage(num) {
-      var fiftyPercent = num * 0.50;
-      var thirtyPercent = num * 0.30;
-      var twentyPercent = num * 0.20;
-
-      var pieChartElement = document.getElementById("pie-chart");
-      if (pieChartElement) {
-        var ctx = pieChartElement.getContext("2d");
-        var chart = new Chart(ctx, {
-          type: "doughnut",
-          data: {
-            labels: ["Savings", "Discretionary spending", "Essential spending"],
-            datasets: [
-              {
-                data: [twentyPercent, thirtyPercent, fiftyPercent],
-                backgroundColor: ["red", "blue", "yellow"],
-                borderWidth: 1,
-                hoverBackgroundColor: "rgba(255, 99, 132, 0.2)",
-                hoverBorderColor: "rgba(255, 99, 132, 1)",
-                hoverBorderWidth: 2,
+        var pieChartElement = document.getElementById("pie-chart");
+        if (pieChartElement) {
+          var ctx = pieChartElement.getContext("2d");
+          var chart = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: ["Savings", "Discretionary spending", "Essential spending"],
+              datasets: [
+                {
+                  data: [twentyPercent, thirtyPercent, fiftyPercent],
+                  backgroundColor: ["red", "blue", "yellow"],
+                  borderWidth: 1,
+                  hoverBackgroundColor: "rgba(255, 99, 132, 0.2)",
+                  hoverBorderColor: "rgba(255, 99, 132, 1)",
+                  hoverBorderWidth: 2,
+                },
+              ],
+            },
+            options: {
+              title: {
+                display: true,
+                text: "50/30/20 BUDGET PLAN"
               },
-            ],
-          },
-          options: {
-            title: {
-            display: true,
-            text: "mepgnsofndwieofoewnsfiowesnfoewsnfoewsnoefwsnfoierdngioerj"
-          },
-            height: 1000,
-            width: 1000,
-            responsive: true,
-            maintainAspectRatio: true,
-            tooltips: {
-              callbacks: {
-                label: function (tooltipItem, data) {
-                  var dataset = data.datasets[tooltipItem.datasetIndex];
-                  var percent = Math.round((dataset.data[tooltipItem.index] / num) * 100);
-                  return percent + "%";
+              height: 1000,
+              width: 1000,
+              responsive: true,
+              maintainAspectRatio: true,
+              tooltips: {
+                callbacks: {
+                  label: function (tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var percent = Math.round((dataset.data[tooltipItem.index] / num) * 100);
+                    return percent + "%";
+                  },
                 },
               },
             },
-          },
-        
+
+          });
+        }
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ["Savings", "other"],
+            datasets: [{
+              data: [num*0.2, num*0.80],
+              backgroundColor: [
+                'red',
+                'grey',
+              ]
+            }], options: {
+              title: {
+                display: true,
+                text: "mepgnsofndwieofoewnsfiowesnfoewsnfoewsnoefwsnfoierdngioerj"
+              },
+            }
+          }
         });
+
+        var ctx = document.getElementById('3070').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ["discrestionaary spending ", "other"],
+            datasets: [{
+              data: [num *0.3, num*0.7],
+              backgroundColor: [
+                'blue',
+                'grey'
+              ]
+            }]
+          }
+        });
+
+        var ctx = document.getElementById('5050').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ["essential spending ", "other"],
+            datasets: [{
+              data: [ num * 0.50, num*0.50],
+              backgroundColor: [
+                'yellow',
+                'grey'
+              ]
+            }]
+          }
+        });
+
+        return `
+   
+  <div class="row d-flex justify-content-center">
+    <div id="chart-container">
+        <h3>Essential spending</h3>
+      <div>50% of your income should be used for essential expenses: £${fiftyPercent.toFixed(2)}</div>
+      </div>
+     
+
+      <div id="chart-container">
+      <h3>discretionary spending</h3>  
+      <div>30% of your income should be used for discretionary spending: £${thirtyPercent.toFixed(2)}</div>
+      </div>
+   
+      <div id="chart-container">
+        <h3>savings or paying off debt</h3>
+      <div>20% of your income should be used for savings or paying off debt: £${twentyPercent.toFixed(2)}</div>
+      </div>
+    </div>
+   
+  `;
       }
 
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ["Savings", "other"],
-          datasets: [{
-            data: [twentyPercent, 80],
-            backgroundColor: [
-              'red',
-              'grey',
-            ]
-          }], options:{
-            title: {
-            display: true,
-            text: "mepgnsofndwieofoewnsfiowesnfoewsnfoewsnoefwsnfoierdngioerj"
-          },
-          }
-        }
-      });
-
-      var ctx = document.getElementById('3070').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ["discrestionaary spending ", "other"],
-          datasets: [{
-            data: [30, 70],
-            backgroundColor: [
-              'blue',
-              'grey'
-            ]
-          }]
-        }
-      });
-
-      var ctx = document.getElementById('5050').getContext('2d');
-      var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          labels: ["essential spending ", "other"],
-          datasets: [{
-            data: [50, 50],
-            backgroundColor: [
-              'yellow',
-              'grey'
-            ]
-          }]
-        }
-      });
-
-      return `
-   
-      <div class = "returnContainers">
-    <div class="container border border-primary rounded-lg p-3">
-      <div>50% of your income should be used for essential expenses: £${fiftyPercent.toFixed(2)}</div>
-     
-      </div>
-      <div class="container border border-warning rounded-lg p-3">
-      <div>30% of your income should be used for discretionary spending: £${thirtyPercent.toFixed(2)}</div>
-    </div>
-      <div class="container border border-danger rounded-lg p-3">
-      <div>20% of your income should be used for savings or paying off debt: £${twentyPercent.toFixed(2)}</div>
-     
-      </div>
-    
-    </div>
-  `;
-    }
 
 
+      function calculatePercentages() {
+        var num = document.getElementById("numInput").value;
+        var percentages = splitPercentage(num);
+        document.getElementById("result").innerHTML = percentages;
 
-    function calculatePercentages() {
-      var num = document.getElementById("numInput").value;
-      var percentages = splitPercentage(num);
-      document.getElementById("result").innerHTML = percentages;
-
-      return false;
-    }
+        return false;
+      }
 
 
-  function displayNumber() {
-    var numInput = document.getElementById("numInput").value;
-    document.getElementById("output").innerHTML = "The entered number is: " + numInput;
-}
+      function displayNumber() {
+        var numInput = document.getElementById("numInput").value;
+        document.getElementById("output").innerHTML = "The entered number is: " + numInput;
+      }
 
-  </script>
+    </script>
 
 
 

@@ -1,8 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
+      .progress{
+        background-color: grey;
+        border-radius: 20px;
+        height: 30px;
+        width: 300px;
+      }
+      .progress-done{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: repeating-linear-gradient(to left,
+        #0546e0,
+        #1172f9,
+        #4892f9);
+        box-shadow: 0 5px 5px -6px #0546e0, 0 3px 7px #1172f9;
+        border-radius: 20px;
+        color: #fff;
+        height: 100%;
+        width: 0;
+        transition: 1s ease 0.3s;
+      }
+      .inputContainer {
+        display: flex;
+        width: 50%;
+        justify-content: space-evenly ;
+      }
       canvas {
         display: block;
         margin: 0 auto;
@@ -10,80 +37,43 @@
     </style>
   </head>
   <body>
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <br><br><br><br><br><br><br><br>
+    <center>
+    <div class="progress">
+      <div class="progress-done"></div>
+    </div>
+  
+    <div class="inputContainer">
+      <div>
+        <h3>Value:</h3>
+        <input class="input" type="number">
+      </div>
+      <div>
+        <h3>Max value:</h3>
+        <input class="maxInput" type="number">
+      </div>
+    </div>
+  </center>
     <script>
-      // Define data for the pie chart
-      var data = {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple"],
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)"
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)"
-            ],
-            borderWidth: 1
-          }
-        ]
-      };
+      const progress = document.querySelector(".progress-done");
+      const input = document.querySelector(".input");
+      const maxInput = document.querySelector(".maxInput");
+      let finalValue = 0;
+      let max = 0;
 
-      // Get the canvas element from the page
-      var ctx = document.getElementById("myChart").getContext("2d");
+      function changeWidth() {
+        progress.style.width = `${(finalValue/max)*100}%`;
+        progress.innerText = `${Math.ceil((finalValue/max)*100)}%`;
+      }
 
-      // Create the pie chart using the data and the canvas context
-      var myPieChart = new Chart(ctx, {
-        type: "pie",
-        data: data,
-        options: {
-          title: {
-            display: true,
-            text: "mepgnsofndwieofoewnsfiowesnfoewsnfoewsnoefwsnfoierdngioerj"
-          },
-          legend: {
-            position: "bottom"
-          },
-          tooltips: {
-            callbacks: {
-              label: function(tooltipItem, data) {
-                var dataset = data.datasets[tooltipItem.datasetIndex];
-                var meta = dataset._meta[Object.keys(dataset._meta)[0]];
-                var total = meta.total;
-                var currentValue = dataset.data[tooltipItem.index];
-                var percentage = parseFloat((currentValue/total*100).toFixed(1));
-                return currentValue + ' (' + percentage + '%)';
-              },
-              title: function(tooltipItem, data) {
-                return data.labels[tooltipItem[0].index];
-              }
-            }
-          },
-          plugins: {
-            datalabels: {
-              formatter: (value, ctx) => {
-                let sum = 0;
-                let dataArr = ctx.chart.data.datasets[0].data;
-                dataArr.map(data => {
-                  sum += data;
-                });
-                let percentage = (value*100)
+      input.addEventListener("keyup", function(){
+        finalValue = parseInt(input.value, 10);
+        changeWidth();
+      });
 
-                return (percentage > 5 ? percentage.toFixed(2) + "%" : "");
-              },
-              color: "#fff"
-            }
-          }
-        }
+      maxInput.addEventListener("keyup", function(){
+        max = parseInt(maxInput.value, 10);
+        changeWidth();
       });
     </script>
   </body>
