@@ -1,41 +1,96 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Expenses List</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Add Your Expenses</title>
+  <style>
+    /* Add some basic styling to the page */
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+    h1 {
+      margin-top: 2em;
+    }
+    button {
+      padding: 0.5em;
+    }
+    #expenseList {
+      margin: 2em auto;
+      width: 30%;
+      text-align: left;
+    }
+  </style>
 </head>
 <body>
-	<h1>Expenses List</h1>
-	<button onclick="displayExpenses()">Show Expenses</button>
+	<center>
+  <h1>Add Your Expenses</h1>
+  <button id="addButton"><img src="icons8-plus-key-50.png" alt="Logo">Add Expense</button>
+  <div id="expenseList"></div>
+</center>
+  <script>
+    // Define a list of expenses the user can select from
+    const expenses = ["Rent/mortgage: £500-£2,000+ per month","Ulitites £150-£200","Internet + Phone bill %30 -£50","Food and groceries: £200-£400 per month","Clothing and personal care: £50-£100","Entertainment and leisure","Travel and vacations","Education and tuition fees","Childcare expenses","Pet care expenses","Home and garden maintenance","Household appliances and electronics"];
 
-	<ul id="expensesList">
-		<li>Expense 1 - $10</li>
-		<li>Expense 2 - $20</li>
-		<li>Expense 3 - $30</li>
-		<li>Expense 4 - $40</li>
-		<li>Expense 5 - $50</li>
-	</ul>
+    // Get references to the button and the list container
+    const addButton = document.getElementById("addButton");
+    const expenseList = document.getElementById("expenseList");
 
-	<h2>My Expenses</h2>
-	<ul id="myExpensesList">
-	</ul>
+    // Add an event listener to the button to show the expense list
+    addButton.addEventListener("click", function() {
+      // Clear the current contents of the list
+      expenseList.innerHTML = "";
 
-	<script>
-		function displayExpenses() {
-			var expenses = document.getElementById("expensesList").getElementsByTagName("li");
-			for (var i = 0; i < expenses.length; i++) {
-				expenses[i].onclick = function() {
-					addExpense(this.innerHTML);
-				};
-			}
-		}
+      // Create a heading for the list
+      const heading = document.createElement("h2");
+      heading.innerText = "Select your expenses:";
+      expenseList.appendChild(heading);
 
-		function addExpense(expense) {
-			var myList = document.getElementById("myExpensesList");
-			var li = document.createElement("li");
-			var text = document.createTextNode(expense);
-			li.appendChild(text);
-			myList.appendChild(li);
-		}
-	</script>
+      // Add each expense to the list as a checkbox
+      expenses.forEach(function(expense) {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "expense";
+        checkbox.value = expense;
+        const label = document.createElement("label");
+        label.innerText = expense;
+        expenseList.appendChild(checkbox);
+        expenseList.appendChild(label);
+        expenseList.appendChild(document.createElement("br"));
+      });
+
+      // Add a button to close the list and save the selected expenses
+      const closeButton = document.createElement("button");
+      closeButton.innerText = "Save Expenses";
+      closeButton.addEventListener("click", function() {
+        // Get all selected checkboxes
+        const selectedExpenses = [];
+        const checkboxes = document.querySelectorAll('input[name="expense"]');
+        checkboxes.forEach(function(checkbox) {
+          if (checkbox.checked) {
+            selectedExpenses.push(checkbox.value);
+          }
+        });
+
+        // Create a list of the selected expenses
+        const selectedList = document.createElement("ul");
+        selectedExpenses.forEach(function(expense) {
+          const listItem = document.createElement("li");
+          listItem.innerText = expense;
+          selectedList.appendChild(listItem);
+        });
+
+        // Replace the expense list with the selected expense list
+        expenseList.innerHTML = "";
+        const selectedHeading = document.createElement("h2");
+        selectedHeading.innerText = "Selected Expenses:";
+        expenseList.appendChild(selectedHeading);
+        expenseList.appendChild(selectedList);
+      });
+
+      expenseList.appendChild(closeButton);
+    });
+  </script>
 </body>
 </html>
