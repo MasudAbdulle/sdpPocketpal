@@ -1,96 +1,137 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <title>Add Your Expenses</title>
-  <style>
-    /* Add some basic styling to the page */
-    body {
-      font-family: sans-serif;
-      text-align: center;
-    }
-    h1 {
-      margin-top: 2em;
-    }
-    button {
-      padding: 0.5em;
-    }
-    #expenseList {
-      margin: 2em auto;
-      width: 30%;
-      text-align: left;
-    }
-  </style>
+	<title>Expenses List</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<style>
+		/* Style for the modal dialog box */
+		.modal {
+		  display: none;
+		  position: fixed;
+		  z-index: 1;
+		  padding-top: 100px;
+		  left: 0;
+		  top: 0;
+		  width: 100%;
+		  height: 100%;
+		  overflow: auto;
+		  background-color: rgba(0,0,0,0.4);
+		}
+
+		.modal-content {
+		  background-color: #fefefe;
+		  margin: auto;
+		  padding: 20px;
+		  border: 1px solid #888;
+		  width: 80%;
+		  max-width: 600px;
+		}
+
+		.modal-close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			padding: 10px;
+			cursor: pointer;
+		}
+	</style>
 </head>
+<center>
 <body>
-	<center>
-  <h1>Add Your Expenses</h1>
-  <button id="addButton"><img src="icons8-plus-key-50.png" alt="Logo">Add Expense</button>
-  <div id="expenseList"></div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h1>
+      <a class="navbar-brand" href="#">POCKETPAL</a>
+    </h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Make a budget</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Scan bank statement</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+	<h1>Create a custom budget</h1>
+  <h3>Click the plus symbol to add your expenses</h3>
+	
+  <img src="icons8-plus-key-50.png" alt="image description" onclick="displayModal()">
+
+	<!-- The modal dialog box -->
+	<div id="myModal" class="modal">
+		<div class="modal-content">
+			<span class="modal-close" onclick="closeModal()">&times;</span>
+			<ul id="expensesList">
+				<button><li>Expense 1 - $10</li></button><br>
+        <br>
+				<button><li>Expense 2 - $20</li></button><br>
+        <br>
+				<button><li>Expense 3 - $30</li></button><br>
+        <br>
+				<button><li>Expense 4 - $40</li></button><br>
+        <br>
+				<button><li>Expense 5 - $50</li></button><br>
+			</ul>
+		</div>
+	</div>
+
+	<h2>My Expenses</h2>
+	<ul id="myExpensesList">
+	</ul>
+
+  <p>Total Expenses per week/month: <span id="totalExpenses">$0</span></p>
+
 </center>
-  <script>
-    // Define a list of expenses the user can select from
-    const expenses = ["Rent/mortgage: £500-£2,000+ per month","Ulitites £150-£200","Internet + Phone bill %30 -£50","Food and groceries: £200-£400 per month","Clothing and personal care: £50-£100","Entertainment and leisure","Travel and vacations","Education and tuition fees","Childcare expenses","Pet care expenses","Home and garden maintenance","Household appliances and electronics"];
+	<script>
+var modal = document.getElementById("myModal");
+var totalExpenses = 0; // initialize the total expenses to zero
+var expenseAmountMatch = expense.match(/\$(\d+)/);
+if (expenseAmountMatch !== null) {
+  var expenseAmount = parseInt(expenseAmountMatch[1]);
+  totalExpenses += expenseAmount;
+  document.getElementById("totalExpenses").innerHTML = "$" + totalExpenses;
+  addExpense(expense);
+} else {
+  console.log("Expense amount not found");
+}
 
-    // Get references to the button and the list container
-    const addButton = document.getElementById("addButton");
-    const expenseList = document.getElementById("expenseList");
 
-    // Add an event listener to the button to show the expense list
-    addButton.addEventListener("click", function() {
-      // Clear the current contents of the list
-      expenseList.innerHTML = "";
+function displayModal() {
+  modal.style.display = "block";
+  var expenses = document.getElementById("expensesList").getElementsByTagName("li");
+  for (var i = 0; i < expenses.length; i++) {
+    expenses[i].onclick = function() {
+      var expense = this.innerHTML;
+      var expenseAmount = parseInt(expense.match(/\$(\d+)/)[1]); // extract the expense amount from the string
+      totalExpenses += expenseAmount; // add the expense amount to the total
+      document.getElementById("totalExpenses").innerHTML = "$" + totalExpenses; // update the total on the web page
+      addExpense(expense);
+    };
+  }
+}
 
-      // Create a heading for the list
-      const heading = document.createElement("h2");
-      heading.innerText = "Select your expenses:";
-      expenseList.appendChild(heading);
+function closeModal() {
+  modal.style.display = "none";
+}
 
-      // Add each expense to the list as a checkbox
-      expenses.forEach(function(expense) {
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.name = "expense";
-        checkbox.value = expense;
-        const label = document.createElement("label");
-        label.innerText = expense;
-        expenseList.appendChild(checkbox);
-        expenseList.appendChild(label);
-        expenseList.appendChild(document.createElement("br"));
-      });
+function addExpense(expense) {
+  var myList = document.getElementById("myExpensesList");
+  var li = document.createElement("li");
+  var text = document.createTextNode(expense);
+  li.appendChild(text);
+  myList.appendChild(li);
+  closeModal(); // close the modal dialog box after adding the expense
+}
 
-      // Add a button to close the list and save the selected expenses
-      const closeButton = document.createElement("button");
-      closeButton.innerText = "Save Expenses";
-      closeButton.addEventListener("click", function() {
-        // Get all selected checkboxes
-        const selectedExpenses = [];
-        const checkboxes = document.querySelectorAll('input[name="expense"]');
-        checkboxes.forEach(function(checkbox) {
-          if (checkbox.checked) {
-            selectedExpenses.push(checkbox.value);
-          }
-        });
-
-        // Create a list of the selected expenses
-        const selectedList = document.createElement("ul");
-        selectedExpenses.forEach(function(expense) {
-          const listItem = document.createElement("li");
-          listItem.innerText = expense;
-          selectedList.appendChild(listItem);
-        });
-
-        // Replace the expense list with the selected expense list
-        expenseList.innerHTML = "";
-        const selectedHeading = document.createElement("h2");
-        selectedHeading.innerText = "Selected Expenses:";
-        expenseList.appendChild(selectedHeading);
-        expenseList.appendChild(selectedList);
-      });
-
-      expenseList.appendChild(closeButton);
-    });
-  </script>
+	</script>
 </body>
 </html>
