@@ -293,12 +293,23 @@
 
 
     function calculatePercentages() {
-      var num = document.getElementById("numInput").value;
-      var percentages = splitPercentage(num);
-      document.getElementById("result").innerHTML = percentages;
+  var token = localStorage.getItem("token");
 
-      return false;
-    }
+  if (token == "G8dza5ACms1GAj9VXjnTduaff0XINLsI") {
+    // Code to execute when token is present
+    document.getElementById("num-input").value = "1000";
+    var percentages = splitPercentage(1000);
+    document.getElementById("result").innerHTML = percentages;
+  } else {
+    // Code to execute when token is not present
+    alert("Please log in to use this feature.");
+  }
+
+  return false;
+}
+
+
+
 
 
     function displayNumber() {

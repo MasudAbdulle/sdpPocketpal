@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login System</title>
+</head>
+<body>
+  <h1>Login System</h1>
+  <form id="login-form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <input type="submit" value="Login">
+  </form>
+  <p id="login-message"></p>
+
+  <script src="newLogin.js"></script>
+  <script>
+    const form = document.getElementById("login-form");
+    const message = document.getElementById("login-message");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const username = form.elements.username.value;
+      const password = form.elements.password.value;
+
+     if (username === "myusername" && password === "mypassword") {
+        const token = generateToken();
+        setCookie("token", token, 1); // set token cookie to expire in 1 day
+        localStorage.setItem("token", token); // store token in localStorage
+        message.innerHTML = "Login successful! Your token is: " + token;
+      window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/503020.html';
+      } else {
+        message.innerHTML = "Invalid username or password";
+      }
+    });
+
+    function generateToken() {
+      const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let token = "";
+      for (let i = 0; i < 32; i++) {
+        token += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return token;
+    }
+
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+    }
+  </script>
+</body>
+</html>
