@@ -132,6 +132,27 @@ function addExpense(expense) {
   closeModal(); // close the modal dialog box after adding the expense
 }
 
+const progress = document.querySelector(".progress-done");
+    const input = document.querySelector(".input");
+    const maxInput = document.querySelector(".maxInput");
+    const nameInput = document.querySelector(".nameInput");
+    let finalValue = 0;
+    let max = 0;
+
+    function changeWidth() {
+      progress.style.width = `${(finalValue / max) * 100}%`;
+      progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
+    }
+
+    input.addEventListener("keyup", function () {
+      finalValue = parseInt(input.value, 10);
+      changeWidth();
+    });
+
+    maxInput.addEventListener("keyup", function () {
+      max = parseInt(maxInput.value, 10);
+      changeWidth();
+    });
 	</script>
 </body>
 </html>
