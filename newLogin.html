@@ -30,7 +30,7 @@
         setCookie("token", token, 1); // set token cookie to expire in 1 day
         localStorage.setItem("token", token); // store token in localStorage
         message.innerHTML = "Login successful! Your token is: " + token;
-      window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/503020.html';
+      window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/503020.html?submitted=true';
       } else {
         message.innerHTML = "Invalid username or password";
       }
