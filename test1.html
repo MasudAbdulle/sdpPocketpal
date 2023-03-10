@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body  onload="submitFormWithSavedNumber('AvrQccejlPsISGHf1bKd4ppzUv1WWhcU')">
+<body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <h1>
       <a class="navbar-brand" href="#">POCKETPAL</a>
@@ -44,7 +44,7 @@
 
   <p id="result"></p>
   </div>
-  <form id="50/30/20" onsubmit="return calculatePercentages()" method="post"  action="/submit-form">
+  <form id="50/30/20" onsubmit="return calculatePercentages()" method="post" action="test1.html">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <label style="width: 200px;">Enter a number: <input type="text" id="numInput"></label>
       <label style="width: 200px;" for="select-frequency">Select Frequency:</label>
@@ -60,7 +60,9 @@
   </form>
   </form>
 
-  
+  <body onload="submitFormWithSavedNumber('TLj0m6bkTzARD7sztsT2zFRgOIhjwIOp')">
+    <!-- Your HTML code here -->
+  </body>
   
 
   
@@ -129,7 +131,9 @@
   
 }
 
+  </script>
   
+  <script>
 
 
 
@@ -368,48 +372,9 @@
     let max = 0;
 
     function changeWidth() {
-  progress.style.width = `${(finalValue / max) * 100}%`;
-  progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
-  
-  // Save user's input to local storage
-  localStorage.setItem("goalName", nameInput.value);
-  localStorage.setItem("finalValue", finalValue);
-  localStorage.setItem("max", max);
-}
-
-// Load user's input from local storage
-window.addEventListener("load", function() {
-  const goalName = localStorage.getItem("goalName");
-  const savedFinalValue = localStorage.getItem("finalValue");
-  const savedMax = localStorage.getItem("max");
-  
-  if (goalName) {
-    nameInput.value = goalName;
-  }
-  
-  if (savedFinalValue) {
-    finalValue = parseInt(savedFinalValue, 10);
-    input.value = finalValue;
-  }
-  
-  if (savedMax) {
-    max = parseInt(savedMax, 10);
-    maxInput.value = max;
-  }
-  
-  changeWidth();
-});
-
-input.addEventListener("keyup", function () {
-  finalValue = parseInt(input.value, 10);
-  changeWidth();
-});
-
-maxInput.addEventListener("keyup", function () {
-  max = parseInt(maxInput.value, 10);
-  changeWidth();
-});
-
+      progress.style.width = `${(finalValue / max) * 100}%`;
+      progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
+    }
 
     input.addEventListener("keyup", function () {
       finalValue = parseInt(input.value, 10);

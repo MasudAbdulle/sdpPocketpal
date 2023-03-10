@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Days Until Payday</title>
+  <script>
+    function calculateDaysUntilPayday() {
+      // Get the user input values
+      const payday = new Date(document.getElementById("payday").value);
+      const frequency = document.getElementById("frequency").value;
+
+      // Calculate the number of days until the next payday
+      const today = new Date();
+      let nextPayday = new Date(payday);
+      while (nextPayday < today) {
+        // If the next payday is in the past, add one pay period (weekly or monthly)
+        if (frequency === "weekly") {
+          nextPayday.setDate(nextPayday.getDate() + 7);
+        } else {
+          nextPayday.setMonth(nextPayday.getMonth() + 1, payday.getDate());
+        }
+      }
+      const timeDiff = nextPayday.getTime() - today.getTime();
+      const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+      // Update the result text with the number of days left
+      document.getElementById("result").textContent = "Days until next payday: " + daysLeft;
+    }
+  </script>
+</head>
+<body>
+  <h1>Days Until Payday</h1>
+  <label for="payday">Enter the day you get paid:</label>
+  <input type="date" id="payday">
+  <label for="frequency">How often are you paid?</label>
+  <select id="frequency">
+    <option value="weekly">Weekly</option>
+    <option value="monthly">Monthly</option>
+  </select>
+  <button onclick="calculateDaysUntilPayday()">Calculate</button>
+  <div id="result"></div>
+</body>
+</html>

@@ -153,6 +153,19 @@ const progress = document.querySelector(".progress-done");
       max = parseInt(maxInput.value, 10);
       changeWidth();
     });
+
+
+    function saveList(list) {
+  // check if the token in the local storage matches the one in the code
+  const token = "my-token";
+  if (localStorage.getItem("token") === token) {
+    // if the tokens match, save the list to local storage
+    localStorage.setItem("myList", JSON.stringify(list));
+    console.log("List saved to local storage.");
+  } else {
+    console.log("Invalid token.");
+  }
+}
 	</script>
 </body>
 </html>
