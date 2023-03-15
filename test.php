@@ -11,7 +11,7 @@
 <?php
 
 
-require_once('tcpdf/tcpdf.php');
+require_once('tcpdf/config/tcpdf_config.php');
 //if the file is uploaded by clicking the upload button
  if($_SERVER['REQUEST_METHOD'] == 'POST'){
  
@@ -50,4 +50,34 @@ if(file_exists("upload/".$filename)){
  }
 }
 
+?>
+<?php
+require_once('tcpdf/tcpdf.php');
+
+// define the PDF file path
+$pdfFilePath = 'upload/your-pdf-file.pdf';
+
+// create new PDF object
+$pdf = new TCPDF();
+
+// set document properties
+$pdf->setPrintHeader(false);
+$pdf->setPrintFooter(false);
+
+// add a page
+$pdf->AddPage();
+
+// set font and font size
+$pdf->SetFont('times', '', 12);
+
+// extract text from PDF file
+$text = $pdf->getTextFromPage($pdfFilePath, 1);
+
+// output the text on the web page
+echo $text;
+?>
+
+<?phprequire_once('tcpdf/tcpdf.php');
+$pdf = new TCPDF();
+echo $pdf->getVersion();
 ?>
