@@ -14,28 +14,38 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <h1>
-          <a class="navbar-brand" href="#">POCKETPAL</a>
+            <a class="navbar-brand" href="#">POCKETPAL</a>
         </h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Make a budget</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Scan bank statement</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Make a budget</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Scan bank statement</a>
+                </li>
+            </ul>
         </div>
-      </nav>
+    </nav>
+    
+    <script>
+        const budgetAmount1 = localStorage.getItem('numInputValue');
+console.log('budgetAmount1:', budgetAmount1); // Check the value in the console
+var thirtyPercent = budgetAmount1 * 0.3;
+
+    </script>
     <h1>Budget Calculator</h1>
-    <div id="budget"></div>
+    <center>
+        <div id="budget"></div>
+        <div id ="countdown"></div>
+    </center>
     <div id="frequency"></div>
     <center>
         <div id="mainChartContainer">
@@ -44,7 +54,7 @@
         <div class="row d-flex justify-content-center">
             <div id="breakdown">
                 <h3>Essential spending</h3>
-                <div>50% of your income should be used for essential expenses: <h3>£${budgetAmount}</h3>
+                <div>50% of your income should be used for essential expenses: <h3>`£${thirtyPercent.toFixed(2)`}</h3>
                 </div>
                 <img src="icons8-car-roof-box-50.png" alt="image description">
                 <img src="icons8-country-house-50.png" alt="image description">
@@ -112,45 +122,70 @@
 
     </div>
 
+    <script>
 
-
+        var country = 'Great Britain'
+        $.ajax({
+            method: 'GET',
+            url: 'https://api.api-ninjas.com/v1/inflation?country=' + country,
+            headers: { 'X-Api-Key': 'UAsZ1KG3XMyWZfyWsmTe1A==xVVVPZqVQII6JaXH' },
+            contentType: 'application/json',
+            success: function (result) {
+                console.log(result);
+                var resultDiv = document.createElement("div");
+                resultDiv.innerHTML = result[0].country + ' ' + result[0].period + ' ' + result[0].yearly_rate_pct;
+                document.body.appendChild(resultDiv);
+            }
+            ,
+            error: function ajaxError(jqXHR) {
+                console.error('Error: ', jqXHR.responseText);
+            }
+        });
+    </script>
 
     <script>
 
+
         // Retrieve the value from local storage
         const budgetAmount = localStorage.getItem('numInputValue');
-        
+
 
         // Update the content of the budget element
         const budgetEl = document.getElementById('budget');
-        
+
         // getting budget amount from local host and putting it on the web application
+        budgetEl.style.fontSize = '24px';
+        budgetEl.style.color = 'blue';
+        budgetEl.style.textAlign = 'center';
 
         budgetEl.textContent = `Your budget is $${budgetAmount} `;
 
 
+
+
+
         // spending power formula
         function calculatePurchasingPower() {
-			// Retrieve the stored value from local storage
-			const value = localStorage.getItem("storedValue");
-			if (!value) {
-				alert("No value found in local storage");
-				return;
-			}
+            // Retrieve the stored value from local storage
+            const value = localStorage.getItem("storedValue");
+            if (!value) {
+                alert("No value found in local storage");
+                return;
+            }
 
-			// Retrieve the inflation rate from user input
-			const inflationRate = document.getElementById("inflationRate").value;
-			if (!inflationRate) {
-				alert("Please enter an inflation rate");
-				return;
-			}
+            // Retrieve the inflation rate from user input
+            const inflationRate = document.getElementById("inflationRate").value;
+            if (!inflationRate) {
+                alert("Please enter an inflation rate");
+                return;
+            }
 
-			// Calculate the purchasing power
-			const purchasingPower = value / (1 + (inflationRate / 100));
+            // Calculate the purchasing power
+            const purchasingPower = value / (1 + (inflationRate / 100));
 
-			// Update the result text with the purchasing power
-			document.getElementById("result").textContent = "Your purchasing power is: $" + purchasingPower.toFixed(2);
-		}
+            // Update the result text with the purchasing power
+            document.getElementById("result").textContent = "Your purchasing power is: $" + purchasingPower.toFixed(2);
+        }
 
 
         twentyPercent = budgetAmount * 0.2;
@@ -360,48 +395,75 @@
     </script>
 
 
-<script>
-    function calculatePurchasingPower() {
-      // Get the value from local storage
-      const value = parseFloat(localStorage.getItem("numInputValue"));
+    <script>
+        function calculatePurchasingPower() {
+            // Get the value from local storage
+            const value = parseFloat(localStorage.getItem("numInputValue"));
 
-      // Set the inflation rate
-      const inflationRate = 0.101;
+            // Set the inflation rate
+            const inflationRate = 0.101;
 
-      // Calculate the purchasing power
-      const purchasingPower = value / Math.pow(1 + inflationRate, 1);
+            // Calculate the purchasing power
+            const purchasingPower = value / Math.pow(1 + inflationRate, 1);
 
-      // Update the result text with the purchasing power
-      document.getElementById("result").textContent = "Your purchasing power is: £" + purchasingPower.toFixed(2);
+            // Update the result text with the purchasing power
+            document.getElementById("result").textContent = "Your purchasing power is: £" + purchasingPower.toFixed(2);
+        }
+    </script>
+
+
+    <script>
+        function calculateNewPrice() {
+            // Get original price and inflation rate from input fields
+            let originalPrice = parseFloat(document.getElementById("original-price").value);
+            let inflationRate = parseFloat(document.getElementById("inflation-rate").value);
+
+            // Calculate new price using formula: new price = original price * (1 + inflation rate/100)
+            let newPrice = originalPrice * (1 + inflationRate / 100);
+
+            // Display new price on the page
+            document.getElementById("new-price").innerHTML = newPrice.toFixed(2);
+        }
+
+
+    </script>
+    <script>
+        var country = 'Great Britain'
+        $.ajax({
+        method: 'GET',
+        url: 'https://api.api-ninjas.com/v1/inflation?country=' + country,
+        headers: { 'X-Api-Key': 'UAsZ1KG3XMyWZfyWsmTe1A==xVVVPZqVQII6JaXH'},
+        contentType: 'application/json',
+        success: function(result) {
+        console.log(result);
+        var resultDiv = document.createElement("div");
+        resultDiv.innerHTML = result[0].country + ' ' + result[0].period + ' ' + result[0].yearly_rate_pct;
+        document.body.appendChild(resultDiv);
     }
-  </script>
+    ,
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
+    });
+    
+    
+    
+    // Get the current date
+var today = new Date();
+
+// Get the last day of the current month
+var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+// Calculate the number of days remaining until the end of the month
+var daysRemaining = Math.ceil((lastDayOfMonth - today) / (1000 * 60 * 60 * 24));
+
+// Output the result
+console.log(daysRemaining + " days remaining until the end of the month.");
 
 
-<script>
-    	function calculateNewPrice() {
-			// Get original price and inflation rate from input fields
-			let originalPrice = parseFloat(document.getElementById("original-price").value);
-			let inflationRate = parseFloat(document.getElementById("inflation-rate").value);
+document.getElementById("countdown").textContent = daysRemaining + " days remaining until next payday.";
+    </script>
 
-			// Calculate new price using formula: new price = original price * (1 + inflation rate/100)
-			let newPrice = originalPrice * (1 + inflationRate/100);
-
-			// Display new price on the page
-			document.getElementById("new-price").innerHTML = newPrice.toFixed(2);
-		}
-</script>
-
-<h1>Inflation Calculator</h1>
-
-<label for="original-price">Original Price:</label>
-<input type="number" id="original-price" placeholder="Enter original price">
-
-<label for="inflation-rate">Inflation Rate (%):</label>
-<input type="number" id="inflation-rate" placeholder="Enter inflation rate">
-
-<button onclick="calculateNewPrice()">Calculate New Price</button>
-
-<p>New Price: $<span id="new-price"></span></p>
 
 </html>
 

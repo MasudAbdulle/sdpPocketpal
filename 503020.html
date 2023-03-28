@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body  onload="submitFormWithSavedNumber('AvrQccejlPsISGHf1bKd4ppzUv1WWhcU')">
+<body  onload="submitFormWithSavedNumber('user1token')">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <h1>
       <a class="navbar-brand" href="#">POCKETPAL</a>
@@ -52,6 +52,7 @@
         <option value="weekly">Weekly</option>
         <option value="monthly">Monthly</option>
       </select>
+      
       <input type="submit" value="submit" onclick="this.form.style.display='none'">
     </div>
   </form>
@@ -60,8 +61,6 @@
   </form>
   </form>
 
-  
-  
 
   
 </center>
@@ -116,6 +115,7 @@
   
   <br><br><br>
   <script>
+    
   function saveFormInput() {
   // Retrieve the values of the input fields
   const numInputValue = document.getElementById("numInput").value;
@@ -420,6 +420,15 @@ maxInput.addEventListener("keyup", function () {
       max = parseInt(maxInput.value, 10);
       changeWidth();
     });
+
+
+
+ 
+
+
+
+
+
   </script>
 
 
