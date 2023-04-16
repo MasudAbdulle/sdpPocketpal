@@ -30,19 +30,19 @@
         setCookie("token", token, 1); // set token cookie to expire in 1 day
         localStorage.setItem("token", token); // store token in localStorage
         message.innerHTML = "Login successful! Your token is: " + token;
-        window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/masud.html';
+        window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/switchboard.html';
       } else if (username === "user2" && password === "password2") {
         const token = generateToken();
         setCookie("token", token, 1); // set token cookie to expire in 1 day
         localStorage.setItem("token", token); // store token in localStorage
         message.innerHTML = "Login successful! Your token is: " + token;
-        window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/503020.html?submitted=true';
+        window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/switchboard.html';
       } else if (username === "user3" && password === "password3") {
-        const token = generateToken();
+        const token = "user3Token";
         setCookie("token", token, 1); // set token cookie to expire in 1 day
         localStorage.setItem("token", token); // store token in localStorage
         message.innerHTML = "Login successful! Your token is: " + token;
-        window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/masud.html';
+        window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/switchboard.html';
       } else {
         message.innerHTML = "Invalid username or password";
       }

@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Switchboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">50/30/20 Budget</h5>
-                <p class="card-text">A 50/30/20 budget is a simple rule that suggests allocating 50% of your income to essential expenses, 30% to discretionary spending, and 20% to savings and debt repayment. It's a good budgeting strategy to help you manage your money effectively and achieve your financial goals.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Envelope Budget Method</h5>
-                <p class="card-text">The envelope budgeting method is a simple strategy where you allocate cash for different spending categories in separate envelopes. This helps you track your spending, stay within your budget, and avoid overspending. It's a good budgeting technique for those who prefer using cash and want to be more mindful of their spending..</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Custom Budget method</h5>
-                <p class="card-text">Create your own budget based on your own methods.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">0 based budget</h5>
-                <p class="card-text">A zero-based budget is a budgeting method where you allocate every dollar of your income towards a specific expense or financial goal. With this method, your income minus your expenses equals zero. This helps you prioritize your spending and ensures that every dollar has a purpose. It's a good budgeting technique for those who want to be intentional with their spending and save money towards their financial goals.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Budget App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  </head>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h1>
+      <a class="navbar-brand" href="#">POCKETPAL</a>
+    </h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Make a budget</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:5000/">Scan bank statement</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <body>
+    <div class="container py-5">
+      <h1 class="mb-5">Welcome to My Budget App!</h1>
+      <div class="d-grid gap-3">
+        <button id="check-token" class="btn btn-primary">View My Budget</button>
+        <a href="http://localhost/testsite/SDP/sdpPocketpal/select.html" class="btn btn-secondary">New Budget</a>
       </div>
-      
-</body>
-
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script>
+      const checkTokenButton = document.getElementById('check-token');
+      checkTokenButton.addEventListener('click', function(event) {
+        event.preventDefault(); // prevent button submission
+        const token = localStorage.getItem('token'); // retrieve token from local storage
+        if (token === 'user1token') {
+          window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/503020.html'; // redirect to authorized page
+        } else if (token == 'xj9hatMGZqRXCXyQwqh4tcizzLyI3Uxj'){
+          window.location.href = 'http://localhost/testsite/SDP/sdpPocketpal/envelope.html'; // redirect to view budget page
+        }
+      });
+    </script>
+  </body>
 </html>

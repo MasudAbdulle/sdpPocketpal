@@ -9,6 +9,17 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .info-btn {
+    background-image: url('info.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+    </style>
 </head>
 
 <body>
@@ -34,7 +45,14 @@
             </ul>
         </div>
     </nav>
-    
+    <button class="info-btn" onclick="openWindow()"></button>
+
+<script>
+function openWindow() {
+  window.open("http://localhost/testsite/SDP/sdpPocketpal/popupbox.html", "_blank", "width=500,height=500");
+}
+</script>
+
     <script>
         const budgetAmount1 = localStorage.getItem('numInputValue');
 console.log('budgetAmount1:', budgetAmount1); // Check the value in the console
@@ -43,8 +61,8 @@ var thirtyPercent = budgetAmount1 * 0.3;
     </script>
     <h1>Budget Calculator</h1>
     <center>
-        <div id="budget"></div>
-        <div id ="countdown"></div>
+        <div id="budget"> </div>
+        <div id ="countdown"> <button class="info-btn" onclick="openWindow()">View TVM</button></div>
     </center>
     <div id="frequency"></div>
     <center>
@@ -340,58 +358,86 @@ var thirtyPercent = budgetAmount1 * 0.3;
         let max = 0;
 
         function changeWidth() {
-            progress.style.width = `${(finalValue / max) * 100}%`;
-            progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
+  progress.style.width = `${(finalValue / max) * 100}%`;
+  progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
 
-            // Save user's input to local storage
-            localStorage.setItem("goalName", nameInput.value);
-            localStorage.setItem("finalValue", finalValue);
-            localStorage.setItem("max", max);
-        }
+  // Save user's input to local storage
+  const formData = JSON.parse(localStorage.getItem('formData')) || [];
+  const userData = formData[0];
+  userData.goalName = nameInput.value;
+  userData.finalValue = finalValue;
+  userData.max = max;
+  localStorage.setItem('formData', JSON.stringify(formData));
+}
 
-        // Load user's input from local storage
-        window.addEventListener("load", function () {
-            const goalName = localStorage.getItem("goalName");
-            const savedFinalValue = localStorage.getItem("finalValue");
-            const savedMax = localStorage.getItem("max");
+// Load user's input from local storage
+window.addEventListener("load", function () {
+  const formData = JSON.parse(localStorage.getItem('formData')) || [];
+  const userData = formData[0];
+  
+  if (userData) {
+    // User exists
+    const goalName = userData.goalName;
+    const savedFinalValue = userData.finalValue;
+    const savedMax = userData.max;
+    
+    if (goalName) {
+      nameInput.value = goalName;
+    }
 
-            if (goalName) {
-                nameInput.value = goalName;
-            }
+    if (savedFinalValue) {
+      finalValue = parseInt(savedFinalValue, 10);
+      input.value = finalValue;
+    }
 
-            if (savedFinalValue) {
-                finalValue = parseInt(savedFinalValue, 10);
-                input.value = finalValue;
-            }
-
-            if (savedMax) {
-                max = parseInt(savedMax, 10);
-                maxInput.value = max;
-            }
-
-            changeWidth();
-        });
-
-        input.addEventListener("keyup", function () {
-            finalValue = parseInt(input.value, 10);
-            changeWidth();
-        });
-
-        maxInput.addEventListener("keyup", function () {
-            max = parseInt(maxInput.value, 10);
-            changeWidth();
-        });
+    if (savedMax) {
+      max = parseInt(savedMax, 10);
+      maxInput.value = max;
+    }
+  } else {
+    // User does not exist
+    console.log("User not found!");
+  }
+});
 
 
-        input.addEventListener("keyup", function () {
-            finalValue = parseInt(input.value, 10);
-            changeWidth();
-        });
 
-        maxInput.addEventListener("keyup", function () {
-            max = parseInt(maxInput.value, 10);
-            changeWidth();
-        });
+input.addEventListener("keyup", function () {
+  finalValue = parseInt(input.value, 10);
+  localStorage.setItem("finalValue", finalValue); // Update localStorage
+  changeWidth();
+});
+
+maxInput.addEventListener("keyup", function () {
+  max = parseInt(maxInput.value, 10);
+  localStorage.setItem("max", max); // Update localStorage
+  changeWidth();
+});
+
+
+// Load user's input from local storage
+window.addEventListener("load", function () {
+  const goalName = localStorage.getItem("goalName");
+  const savedFinalValue = localStorage.getItem("finalValue");
+  const savedMax = localStorage.getItem("max");
+  
+  if (goalName) {
+    nameInput.value = goalName;
+  }
+
+  if (savedFinalValue) {
+    finalValue = parseInt(savedFinalValue, 10);
+    input.value = finalValue;
+  }
+
+  if (savedMax) {
+    max = parseInt(savedMax, 10);
+    maxInput.value = max;
+  }
+  
+  changeWidth(); // Call changeWidth to update the progress bar on load
+});
+
     </script>
 
 
@@ -409,6 +455,10 @@ var thirtyPercent = budgetAmount1 * 0.3;
             // Update the result text with the purchasing power
             document.getElementById("result").textContent = "Your purchasing power is: £" + purchasingPower.toFixed(2);
         }
+        const formData = JSON.parse(localStorage.getItem('formData'));
+console.log(formData);
+
+
     </script>
 
 

@@ -13,8 +13,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css">
 </head>
+<body onload="submitFormWithSavedNumber(JSON.parse(localStorage.getItem('formData'))[0].email)">
 
-<body  onload="submitFormWithSavedNumber('user1token')">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <h1>
       <a class="navbar-brand" href="#">POCKETPAL</a>
@@ -44,7 +44,7 @@
 
   <p id="result"></p>
   </div>
-  <form id="50/30/20" onsubmit="return calculatePercentages()" method="post"  action="/submit-form">
+  <form id="50/30/20" onsubmit="return calculatePercentages()" method="post">
     <div style="display: flex; flex-direction: column; align-items: center;">
       <label style="width: 200px;">Enter a number: <input type="text" id="numInput"></label>
       <label style="width: 200px;" for="select-frequency">Select Frequency:</label>
@@ -116,7 +116,27 @@
   <br><br><br>
   <script>
     
-  function saveFormInput() {
+    function saveFormInput() {
+  // Retrieve the values of the input fields
+  const numInputValue = document.getElementById("numInput").value;
+  const frequencyValue = document.getElementById("select-frequency").value;
+
+  // Retrieve the user's account data
+  const formData = JSON.parse(localStorage.getItem('formData')) || [];
+  const userData = formData.find(data => data.active === true);
+
+  // Add the numInputValue to the user's account data
+  userData.numInputValue = numInputValue;
+
+  // Store the updated user's account data in local storage
+  localStorage.setItem('formData', JSON.stringify(formData));
+
+  // Store the values of the input fields in local storage
+  localStorage.setItem("numInputValue", numInputValue);
+  localStorage.setItem("frequencyValue", frequencyValue);
+}
+
+function saveFormInput() {
   // Retrieve the values of the input fields
   const numInputValue = document.getElementById("numInput").value;
   const frequencyValue = document.getElementById("select-frequency").value;
@@ -128,38 +148,10 @@
   
   
 }
+const formData = JSON.parse(localStorage.getItem('formData')) || [];
+console.log(formData);
 
-  
-
-
-
-    function submitFormWithSavedNumber(token) {
-  if (token === localStorage.getItem("token")) {
-    // Token is valid
-    const savedNumber = localStorage.getItem("numInputValue");
-    const frequencyValue = localStorage.getItem("frequencyValue"); 
-    if (savedNumber) {
-      // Saved number exists
-      document.getElementById("numInput").value = savedNumber;
-      document.getElementById("frequencyInput").value = frequencyValue;
-      document.getElementById("50/30/20").submit();
-      
-
-
-      
-    } else {
-      // Saved number does not exist
-      console.log("Saved number not found!");
-    }
-  } else {
-    // Token is not valid
-    console.log("Invalid token!");
-  }
-}
-
-
-
-    function splitPercentage(num) {
+function splitPercentage(num) {
       var fiftyPercent = num * 0.50;
       var thirtyPercent = num * 0.30;
       var twentyPercent = num * 0.20;

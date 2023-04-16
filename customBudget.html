@@ -124,14 +124,21 @@ function closeModal() {
 }
 
 function addExpense(expense) {
-  var myList = document.getElementById("myExpensesList");
-  var li = document.createElement("li");
-  var text = document.createTextNode(expense);
-  li.appendChild(text);
-  myList.appendChild(li);
-  closeModal(); // close the modal dialog box after adding the expense
-}
+var myList = document.getElementById("myExpensesList");
+var li = document.createElement("li");
+var text = document.createTextNode(expense);
+li.appendChild(text);
+myList.appendChild(li);
+closeModal(); // close the modal dialog box after adding the expense
 
+var token = localStorage.getItem("token");
+if (token === 'user3Token') {
+var savedExpensesList = localStorage.getItem("expensesList");
+if (savedExpensesList) {
+document.getElementById("expensesList").innerHTML = savedExpensesList;
+}
+}
+}
 const progress = document.querySelector(".progress-done");
     const input = document.querySelector(".input");
     const maxInput = document.querySelector(".maxInput");
@@ -166,6 +173,14 @@ const progress = document.querySelector(".progress-done");
     console.log("Invalid token.");
   }
 }
+
+
+for (var i = 0; i < localStorage.length; i++){
+    var key = localStorage.key(i);
+    var value = localStorage.getItem(key);
+    console.log(key + " : " + value);
+}
+
 	</script>
 </body>
 </html>
