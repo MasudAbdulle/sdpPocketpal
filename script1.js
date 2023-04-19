@@ -31,6 +31,7 @@ const signUp = e => {
 }
 
 function signIn(e) {
+    console.log("signIn function called."); // Add this line
     let email = document.getElementById('email').value, pwd = document.getElementById('pwd').value;
     let formData = JSON.parse(localStorage.getItem('formData')) || [];
     let exist = formData.length && 
@@ -46,7 +47,8 @@ function signIn(e) {
         });
 
         localStorage.setItem('formData', JSON.stringify(formData));
-        location.href = "/";
+        window.location.replace("http://localhost/testsite/SDP/sdpPocketpal/switchboard.html");
     }
     e.preventDefault();
+   
 }

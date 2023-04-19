@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cookie Example</title>
+  </head>
+  <body>
+    <p>Start Balance: <span id="start-balance"></span></p>
+    <p>Money In: <span id="money-in"></span></p>
+    <p>Money Out: <span id="money-out"></span></p>
+    <p>End Balance: <span id="end-balance"></span></p>
+
+    <script>
+      // Get the balance from the cookie
+      var balance = document.cookie.replace(/(?:(?:^|.*;\s*)balance\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
+      // Extract the numeric values from the balance string
+      var startBalance = parseFloat(balance.match(/Start balance\s*£\s*([\d,\.]+)/)[1].replace(/[^\d.]/g, ''));
+      var moneyIn = parseFloat(balance.match(/Money in\s*£\s*([\d,\.]+)/)[1].replace(/[^\d.]/g, ''));
+      var moneyOut = parseFloat(balance.match(/Money out\s*£\s*([\d,\.]+)/)[1].replace(/[^\d.]/g, ''));
+      var endBalance = parseFloat(balance.match(/End balance\s*£\s*([\d,\.]+)/)[1].replace(/[^\d.]/g, ''));
+
+      // Update the HTML elements with the extracted values
+      document.getElementById("start-balance").innerHTML = "£" + startBalance.toFixed(2);
+      document.getElementById("money-in").innerHTML = "£" + moneyIn.toFixed(2);
+      document.getElementById("money-out").innerHTML = "£" + moneyOut.toFixed(2);
+      document.getElementById("end-balance").innerHTML = "£" + endBalance.toFixed(2);
+    </script>
+
+    <script>
+const balanceCookie = decodeURIComponent(document.cookie)
+  .split(';')
+  .find(cookie => cookie.trim().startsWith('balance='))
+  .trim()
+  .replace('balance=', '');
+
+const formattedBalance = balanceCookie
+  .replace(/\\054/g, ',') // replace all occurrences of \054 with comma
+  .replace(/\\012/g, '\n') // replace all occurrences of \012 with newline
+  .replace(/\\302\\243/g, '£'); // replace all occurrences of \302\243 with £
+
+console.log(formattedBalance);
+
+
+    </script>
+  </body>
+</html>
