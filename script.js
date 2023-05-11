@@ -1,21 +1,16 @@
-const progress = document.querySelector(".progress-done");
-const input = document.querySelector(".input");
-const maxInput = document.querySelector(".maxInput");
-let finalValue = 0;
-let max = 0;
+document.addEventListener("DOMContentLoaded", function() {
+  var navbarPlaceholder = document.getElementById("navbar-placeholder");
 
+  // Create a new XMLHttpRequest object
+  var xhr = new XMLHttpRequest();
 
-function changeWidth() {
-  progress.style.width = `${(finalValue/max)*100}%`;
-  progress.innerText = `${Math.ceil((finalValue/max)*100)}%`;
-}
-
-input.addEventListener("keyup", function(){
-  finalValue = parseInt(input.value, 10);
-  changeWidth();
-});
-
-maxInput.addEventListener("keyup", function(){
-  max = parseInt(maxInput.value, 10);
-  changeWidth();
+  // Load the contents of the navbar.html file
+  xhr.open("GET", "navbar.html", true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Insert the navbar HTML into the placeholder element
+      navbarPlaceholder.innerHTML = xhr.responseText;
+    }
+  };
+  xhr.send();
 });

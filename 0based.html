@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>Zero-Based Budgeting</title>
+    <script src="script.js"></script>
+
 </head>
 <body>
+  <div id="navbar-placeholder"></div>
+    <h1>Zero-Based Budgeting</h1>
+    <p>Zero-based budgeting is a budgeting technique that requires you to allocate every dollar of your income to a specific expense or savings category. This method ensures that you are aware of where your money is going and helps you prioritize your expenses according to your needs and goals. In a zero-based budget, the goal is to have a zero balance at the end of the month, meaning that you have allocated all your income to expenses, savings, or investments.</p>
     <form>
         <label>Enter total income:</label>
         <input type="number" id="totalIncome" name="totalIncome">
@@ -19,6 +25,19 @@
         <p id="remaining">The remaining amount will be shown here.</p>
       </form>
 <script>
+  
+  // Retrieve the input element
+  var totalIncomeInput = document.getElementById('totalIncome');
+  
+  // Add an event listener to the input element
+  totalIncomeInput.addEventListener('change', function() {
+    // Get the value entered by the user
+    var totalIncome = totalIncomeInput.value;
+    
+    // Save the value to local storage
+    localStorage.setItem('totalIncome', totalIncome);
+  });
+
     document.querySelector("form").addEventListener("submit", function(event) {
   event.preventDefault();
   let totalExpenses = 0;
@@ -32,7 +51,7 @@
     }
   }
   let remaining = totalIncome - totalExpenses;
-  document.querySelector("#remaining").textContent = `The remaining amount is: ${remaining}`;
+  document.querySelector("#remaining").textContent = `The remaining amount is £: ${remaining}`;
 });
 
 document.querySelector("input[name='totalIncome']").addEventListener("change", function() {
@@ -47,7 +66,11 @@ document.querySelector("input[name='totalIncome']").addEventListener("change", f
     `;
   }
 });
-
-</script>      
+function openWindow() {
+  window.open("http://localhost/testsite/SDP/sdpPocketpal/0basedTVM.html", "_blank", "width=500,height=500");
+}
+</script>     
+<br><br> 
+<button  onclick="openWindow()"> See Time value of Money</button>
 </body>
 </html>

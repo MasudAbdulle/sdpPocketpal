@@ -20,33 +20,16 @@
     cursor: pointer;
   }
     </style>
+    <script src="script.js"></script>
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h1>
-            <a class="navbar-brand" href="#">POCKETPAL</a>
-        </h1>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Make a budget</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Scan bank statement</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <button class="info-btn" onclick="openWindow()"></button>
-
+    <div id="navbar-placeholder"></div>
+    <br><br>
+    <button class="images/info-btn" onclick="openWindow()"></button>
+<br>
+<br>
 <script>
 function openWindow() {
   window.open("http://localhost/testsite/SDP/sdpPocketpal/popupbox.html", "_blank", "width=500,height=500");
