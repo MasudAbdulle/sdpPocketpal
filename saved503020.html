@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="style.css">
     <style>
         .info-btn {
-    background-image: url('info.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    border: none;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-  }
+            background-image: url('info.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: none;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
     </style>
     <script src="script.js"></script>
 
@@ -27,25 +27,25 @@
 <body>
     <div id="navbar-placeholder"></div>
     <br><br>
-    <button class="images/info-btn" onclick="openWindow()"></button>
-<br>
-<br>
-<script>
-function openWindow() {
-  window.open("http://localhost/testsite/SDP/sdpPocketpal/popupbox.html", "_blank", "width=500,height=500");
-}
-</script>
+    <button onclick="openWindow()"> See TVM</button>
+    <br>
+    <br>
+    <script>
+        function openWindow() {
+            window.open("http://localhost/testsite/SDP/sdpPocketpal/popupbox.html", "_blank", "width=500,height=500");
+        }
+    </script>
 
     <script>
         const budgetAmount1 = localStorage.getItem('numInputValue');
-console.log('budgetAmount1:', budgetAmount1); // Check the value in the console
-var thirtyPercent = budgetAmount1 * 0.3;
+        console.log('budgetAmount1:', budgetAmount1); // Check the value in the console
+        var thirtyPercent = budgetAmount1 * 0.3;
 
     </script>
     <h1>Budget Calculator</h1>
     <center>
         <div id="budget"> </div>
-        <div id ="countdown"> <button class="info-btn" onclick="openWindow()">View TVM</button></div>
+        <div id="countdown"> <button class="info-btn" onclick="openWindow()">View TVM</button></div>
     </center>
     <div id="frequency"></div>
     <center>
@@ -55,30 +55,30 @@ var thirtyPercent = budgetAmount1 * 0.3;
         <div class="row d-flex justify-content-center">
             <div id="breakdown">
                 <h3>Essential spending</h3>
-                <div>50% of your income should be used for essential expenses: <h3>`£${thirtyPercent.toFixed(2)`}</h3>
+                <div>50% of your income should be used for essential expenses: <h3><span id="number"></span></h3>
                 </div>
-                <img src="icons8-car-roof-box-50.png" alt="image description">
-                <img src="icons8-country-house-50.png" alt="image description">
-                <img src="icons8-grocery-store-50.png" alt="image description">
+                <img src="images/icons8-car-roof-box-50.png" alt="image description">
+                <img src="images/icons8-country-house-50.png" alt="image description">
+                <img src="images/icons8-grocery-store-50.png" alt="image description">
 
             </div>
 
 
             <div id="breakdown">
                 <h3>discretionary spending</h3>
-                <div>30% of your income should be used for discretionary spending: <h3>£${thirtyPercent.toFixed(2)}</h3>
+                <div>30% of your income should be used for discretionary spending: <h3><span id="number2"></span></h3>
                 </div>
-                <img src="icons8-ds3-tool-50.png" alt="image description">
-                <img src="icons8-hairdresser-50.png" alt="image description">
-                <img src="icons8-movie-theater-50.png" alt="image description">
+                <img src="images/icons8-ds3-tool-50.png" alt="image description">
+                <img src="images/icons8-hairdresser-50.png" alt="image description">
+                <img src="images/icons8-movie-theater-50.png" alt="image description">
             </div>
 
             <div id="breakdown">
                 <h3>savings or paying off debt</h3>
-                <div>20% of your income should be used for savings or paying off debt: <h3>£${twentyPercent.toFixed(2)}
+                <div>20% of your income should be used for savings or paying off debt: <h3><span id="number3"></span>
                     </h3>
                 </div>
-                <img src="icons8-saving-money-64.png" alt="image description">
+                <img src="images/icons8-saving-money-64.png" alt="image description">
             </div>
         </div>
         <div class="row d-flex justify-content-center">
@@ -124,6 +124,9 @@ var thirtyPercent = budgetAmount1 * 0.3;
     </div>
 
     <script>
+        document.getElementById('number').textContent = budgetAmount1 * 0.5;
+        document.getElementById('number2').textContent = budgetAmount1 * 0.3;
+        document.getElementById('number3').textContent = budgetAmount1 * 0.2;
 
         var country = 'Great Britain'
         $.ajax({
@@ -341,85 +344,85 @@ var thirtyPercent = budgetAmount1 * 0.3;
         let max = 0;
 
         function changeWidth() {
-  progress.style.width = `${(finalValue / max) * 100}%`;
-  progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
+            progress.style.width = `${(finalValue / max) * 100}%`;
+            progress.innerText = `${nameInput.value} - $${finalValue} / $${max} (${Math.ceil((finalValue / max) * 100)}%)`;
 
-  // Save user's input to local storage
-  const formData = JSON.parse(localStorage.getItem('formData')) || [];
-  const userData = formData[0];
-  userData.goalName = nameInput.value;
-  userData.finalValue = finalValue;
-  userData.max = max;
-  localStorage.setItem('formData', JSON.stringify(formData));
-}
+            // Save user's input to local storage
+            const formData = JSON.parse(localStorage.getItem('formData')) || [];
+            const userData = formData[0];
+            userData.goalName = nameInput.value;
+            userData.finalValue = finalValue;
+            userData.max = max;
+            localStorage.setItem('formData', JSON.stringify(formData));
+        }
 
-// Load user's input from local storage
-window.addEventListener("load", function () {
-  const formData = JSON.parse(localStorage.getItem('formData')) || [];
-  const userData = formData[0];
-  
-  if (userData) {
-    // User exists
-    const goalName = userData.goalName;
-    const savedFinalValue = userData.finalValue;
-    const savedMax = userData.max;
-    
-    if (goalName) {
-      nameInput.value = goalName;
-    }
+        // Load user's input from local storage
+        window.addEventListener("load", function () {
+            const formData = JSON.parse(localStorage.getItem('formData')) || [];
+            const userData = formData[0];
 
-    if (savedFinalValue) {
-      finalValue = parseInt(savedFinalValue, 10);
-      input.value = finalValue;
-    }
+            if (userData) {
+                // User exists
+                const goalName = userData.goalName;
+                const savedFinalValue = userData.finalValue;
+                const savedMax = userData.max;
 
-    if (savedMax) {
-      max = parseInt(savedMax, 10);
-      maxInput.value = max;
-    }
-  } else {
-    // User does not exist
-    console.log("User not found!");
-  }
-});
+                if (goalName) {
+                    nameInput.value = goalName;
+                }
 
+                if (savedFinalValue) {
+                    finalValue = parseInt(savedFinalValue, 10);
+                    input.value = finalValue;
+                }
 
-
-input.addEventListener("keyup", function () {
-  finalValue = parseInt(input.value, 10);
-  localStorage.setItem("finalValue", finalValue); // Update localStorage
-  changeWidth();
-});
-
-maxInput.addEventListener("keyup", function () {
-  max = parseInt(maxInput.value, 10);
-  localStorage.setItem("max", max); // Update localStorage
-  changeWidth();
-});
+                if (savedMax) {
+                    max = parseInt(savedMax, 10);
+                    maxInput.value = max;
+                }
+            } else {
+                // User does not exist
+                console.log("User not found!");
+            }
+        });
 
 
-// Load user's input from local storage
-window.addEventListener("load", function () {
-  const goalName = localStorage.getItem("goalName");
-  const savedFinalValue = localStorage.getItem("finalValue");
-  const savedMax = localStorage.getItem("max");
-  
-  if (goalName) {
-    nameInput.value = goalName;
-  }
 
-  if (savedFinalValue) {
-    finalValue = parseInt(savedFinalValue, 10);
-    input.value = finalValue;
-  }
+        input.addEventListener("keyup", function () {
+            finalValue = parseInt(input.value, 10);
+            localStorage.setItem("finalValue", finalValue); // Update localStorage
+            changeWidth();
+        });
 
-  if (savedMax) {
-    max = parseInt(savedMax, 10);
-    maxInput.value = max;
-  }
-  
-  changeWidth(); // Call changeWidth to update the progress bar on load
-});
+        maxInput.addEventListener("keyup", function () {
+            max = parseInt(maxInput.value, 10);
+            localStorage.setItem("max", max); // Update localStorage
+            changeWidth();
+        });
+
+
+        // Load user's input from local storage
+        window.addEventListener("load", function () {
+            const goalName = localStorage.getItem("goalName");
+            const savedFinalValue = localStorage.getItem("finalValue");
+            const savedMax = localStorage.getItem("max");
+
+            if (goalName) {
+                nameInput.value = goalName;
+            }
+
+            if (savedFinalValue) {
+                finalValue = parseInt(savedFinalValue, 10);
+                input.value = finalValue;
+            }
+
+            if (savedMax) {
+                max = parseInt(savedMax, 10);
+                maxInput.value = max;
+            }
+
+            changeWidth(); // Call changeWidth to update the progress bar on load
+        });
 
     </script>
 
@@ -439,7 +442,7 @@ window.addEventListener("load", function () {
             document.getElementById("result").textContent = "Your purchasing power is: £" + purchasingPower.toFixed(2);
         }
         const formData = JSON.parse(localStorage.getItem('formData'));
-console.log(formData);
+        console.log(formData);
 
 
     </script>
@@ -461,40 +464,21 @@ console.log(formData);
 
     </script>
     <script>
-        var country = 'Great Britain'
-        $.ajax({
-        method: 'GET',
-        url: 'https://api.api-ninjas.com/v1/inflation?country=' + country,
-        headers: { 'X-Api-Key': 'UAsZ1KG3XMyWZfyWsmTe1A==xVVVPZqVQII6JaXH'},
-        contentType: 'application/json',
-        success: function(result) {
-        console.log(result);
-        var resultDiv = document.createElement("div");
-        resultDiv.innerHTML = result[0].country + ' ' + result[0].period + ' ' + result[0].yearly_rate_pct;
-        document.body.appendChild(resultDiv);
-    }
-    ,
-        error: function ajaxError(jqXHR) {
-            console.error('Error: ', jqXHR.responseText);
-        }
-    });
-    
-    
-    
-    // Get the current date
-var today = new Date();
 
-// Get the last day of the current month
-var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        // Get the current date
+        var today = new Date();
 
-// Calculate the number of days remaining until the end of the month
-var daysRemaining = Math.ceil((lastDayOfMonth - today) / (1000 * 60 * 60 * 24));
+        // Get the last day of the current month
+        var lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-// Output the result
-console.log(daysRemaining + " days remaining until the end of the month.");
+        // Calculate the number of days remaining until the end of the month
+        var daysRemaining = Math.ceil((lastDayOfMonth - today) / (1000 * 60 * 60 * 24));
+
+        // Output the result
+        console.log(daysRemaining + " days remaining until the end of the month.");
 
 
-document.getElementById("countdown").textContent = daysRemaining + " days remaining until next payday.";
+        document.getElementById("countdown").textContent = daysRemaining + " days remaining until next payday.";
     </script>
 
 

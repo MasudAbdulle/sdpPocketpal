@@ -1,0 +1,37 @@
+<html>
+    <script>
+// Retrieve the value from the 'balance' cookie
+var cookies = decodeURIComponent(document.cookie).split(';');
+var balanceCookie;
+
+// Find the 'balance' cookie
+for (var i = 0; i < cookies.length; i++) {
+  var cookie = cookies[i].trim();
+  if (cookie.startsWith('balance=')) {
+    balanceCookie = cookie.substring('balance='.length);
+    break;
+  }
+}
+
+var balanceValue; // Variable to store the balance value
+var value1003; // Variable to store the extracted value 1003.02
+
+if (balanceCookie) {
+  balanceValue = balanceCookie;
+  console.log(balanceValue);
+
+  // Extract the value 1003.02 from the cookie using regular expression
+  var valueMatch = balanceValue.match(/\\302\\243(\d+(?:,\d+)?\.\d+)/);
+
+  if (valueMatch && valueMatch.length > 1) {
+    value1003 = parseFloat(valueMatch[1].replace(/,/g, ''));
+    console.log("Value 1003.02:", value1003);
+  } else {
+    console.log("Value 1003.02 not found in the cookie string.");
+  }
+
+  // Now you can use the 'balanceValue' and 'value1003' variables for further processing or operations.
+}
+
+    </script>
+</html>
